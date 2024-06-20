@@ -2,15 +2,17 @@
 
 import { Button, Frog, TextInput } from 'frog'
 import { devtools } from 'frog/dev'
-import { pinata } from 'frog/hubs'
+import { neynar } from 'frog/hubs'
 import { handle } from 'frog/next'
 import { serveStatic } from 'frog/serve-static'
 
 const app = new Frog({
   assetsPath: '/',
   basePath: '/api',
+  hub: neynar({ apiKey
+    : 'NEYNAR_FROG_FM' })
   // Supply a Hub to enable frame verification.
-  hub: pinata()
+
 })
 
 // Uncomment to use Edge Runtime
@@ -30,16 +32,7 @@ app.frame('/', (c) => {
 })
 
 app.frame('/picker', async (c) => {
-  const reqBody = await c.req.json();
-  console.log('Request Body:', reqBody); // Debugging log to check the request body
-
-  const previousButtonValues = reqBody.untrustedData.url.split('previousButtonValues=')[1];
-  const buttonValues = previousButtonValues ? decodeURIComponent(previousButtonValues).split(',') : [];
-  const { buttonValue } = c
-
-  console.log('Extracted Button Values:', buttonValues); // Debugging log to check extracted button values
-  console.log('Button Value:', buttonValue); // Debugging log to check the button value
-
+  const { buttonValue, verified } = c
   if (buttonValue === 'dontlovesprite') {
     // show sad cat
     console.log('Showing sad cat');
