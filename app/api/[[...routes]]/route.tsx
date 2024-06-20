@@ -2,6 +2,7 @@
 
 import { Button, Frog, TextInput } from 'frog'
 import { devtools } from 'frog/dev'
+import { neynar } from 'frog/hubs'
 import { handle } from 'frog/next'
 import { serveStatic } from 'frog/serve-static'
 
@@ -9,12 +10,14 @@ const app = new Frog({
   assetsPath: '/',
   basePath: '/api',
   // Supply a Hub to enable frame verification.
+  hub: neynar({ apiKey: 'NEYNAR_FROG_FM' })
 })
 
 // Uncomment to use Edge Runtime
 // export const runtime = 'edge'
 
-
+const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://sprite-frame.vercel.app/';
+console.log('Base URL:', baseUrl);
 
 // Middleware to serve static files
 app.use(serveStatic({ root: './public' }))
@@ -22,7 +25,7 @@ app.use(serveStatic({ root: './public' }))
 app.frame('/', (c) => {
   return c.res({
     action: '/picker',
-    image: `${process.env.NEXT_PUBLIC_SITE_URL}lovesprite.png`,
+    image: `${baseUrl}lovesprite.png`,
     intents: [
       <TextInput placeholder="ya love sprite??" />,
       <Button value="lovesprite">i love sprite too!!!</Button>,
@@ -47,7 +50,7 @@ app.frame('/picker', async (c) => {
     console.log('Showing sad cat');
     return c.res({
       action: '/cats/sadcat',
-      image: `${process.env.NEXT_PUBLIC_SITE_URL}/cats/sadcat.png`, // Make sure the image path is correct
+      image: `${baseUrl}cats/sadcat.png`, // Make sure the image path is correct
     })
   }
 
@@ -55,7 +58,7 @@ app.frame('/picker', async (c) => {
   console.log('Showing hapi cat');
   return c.res({
     action: '/cats/hapicat', // Ensure action path is correct
-    image: `${process.env.NEXT_PUBLIC_SITE_URL}/cats/hapicat.png`, // Make sure the image path is correct
+    image: `${baseUrl}cats/hapicat.png`, // Make sure the image path is correct
   })
 })
 
