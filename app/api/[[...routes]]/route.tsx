@@ -16,7 +16,7 @@ const app = new Frog({
 // Uncomment to use Edge Runtime
 // export const runtime = 'edge'
 
-const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://sprite-frame.vercel.app/';
+const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
 console.log('Base URL:', baseUrl);
 
 // Middleware to serve static files
