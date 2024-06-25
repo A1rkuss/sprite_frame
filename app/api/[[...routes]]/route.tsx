@@ -22,7 +22,7 @@ const app = new Frog({
 app.frame('/', (c) => {
   return c.res({
     action: '/picker',
-    image: `${process.env.NEXT_PUBLIC_SITE_URL}lovesprite.png`,
+    image: `${process.env.NEXT_PUBLIC_SITE_URL}/lovesprite.png`,
     intents: [
       <TextInput placeholder="ya love sprite??" />,
       <Button value="lovesprite">i love sprite too!!!</Button>,
@@ -38,7 +38,7 @@ app.frame('/picker', async (c) => {
     console.log('Showing sad cat');
     return c.res({
       action: '/cats/sadcat',
-      image: `${process.env.NEXT_PUBLIC_SITE_URL}cats/sadcat.png`, // Make sure the image path is correct
+      image: `${process.env.NEXT_PUBLIC_SITE_URL}/cats/sadcat.png`, // Make sure the image path is correct
     })
   }
 
@@ -46,7 +46,7 @@ app.frame('/picker', async (c) => {
   console.log('Showing hapi cat');
   return c.res({
     action: '/cats/hapicat', // Ensure action path is correct
-    image: `${process.env.NEXT_PUBLIC_SITE_URL}cats/hapicat.png`, // Make sure the image path is correct
+    image: `${process.env.NEXT_PUBLIC_SITE_URL}/cats/hapicat.png`, // Make sure the image path is correct
   })
 })
 
